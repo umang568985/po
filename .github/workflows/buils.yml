@@ -1,0 +1,28 @@
+name: Compile Cython
+
+on:
+  push:
+    branches:
+      - main  # You can change this to the branch you want to trigger on
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.x  # Choose the Python version you need
+
+    - name: Install Cython
+      run: pip install cython
+
+    - name: Compile Cython code
+      run: cythonize -i main.py
+
+    - name: Run your Python script
+      run: python main.py
