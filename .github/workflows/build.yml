@@ -1,0 +1,32 @@
+name: Build My Game Center App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build APK with Cython
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install Cython
+      run: pip install cython
+
+    - name: Install Buildozer
+      run: pip install buildozer
+
+    - name: Compile Cython code
+      run: cythonize -i main.pyx  # Replace 'main.pyx' with your Cython source file
+
+    - name: Build Android APK
+      run: buildozer android debug
